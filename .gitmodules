@@ -1,0 +1,3 @@
+[submodule "lib/active_scaffold"]
+	path = lib/active_scaffold
+	url = https://github.com/activescaffold/active_scaffold.git

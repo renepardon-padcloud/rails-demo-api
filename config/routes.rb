@@ -1,6 +1,40 @@
+##
+# The priority is based upon order of creation:
+# first created -> highest priority.
+#
 ActivescaffoldTestApi::Application.routes.draw do
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
+  # These are the admin routes.
+  namespace :admin do
+    resources :users
+
+    # These admin routes are for PCM users only.
+    namespace :pcm do
+
+    end
+  end
+
+  # TODO: We may want the language as paramater within the URI path?
+  # These are the API level routes.
+  namespace :api do
+    # Contains the routes for API version 1.
+    namespace :v1 do
+      #resources :resourcename
+    end
+
+    # Contains the routes for API version 1.
+    namespace :v2 do
+      #resources :resourcename
+    end
+
+    # Map unversioned resource requests to the latest (v2) version.
+    match 'v:api/*path', :to => redirect("/api/v2/%{path}")
+    match '*path', :to => redirect("/api/v2/%{path}")
+  end
+
+  # The root/landingpage of our application. Should point to the login page if
+  # current visitor is not already authenticated.
+  root :to => 'welcome#index'
+
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
@@ -45,10 +79,6 @@ ActivescaffoldTestApi::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 
